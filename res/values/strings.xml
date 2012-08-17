@@ -1,0 +1,12 @@
+<resources>
+
+    <string name="app_name">Battery Saver Flashlight</string>
+    <string name="intro_message">
+        Welcome to the Battery Saver Flashlight!
+        There are numerous flashlight apps out there.
+        This one gives you convenient options for conserving battery power.
+    </string>
+    <string name="menu_settings">Settings</string>
+    <string name="button_continue_text">Continue</string>
+
+</resources>
