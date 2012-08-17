@@ -6,7 +6,11 @@
         There are numerous flashlight apps out there.
         This one gives you convenient options for conserving battery power.
     </string>
-    <string name="menu_settings">Settings</string>
     <string name="button_continue_text">Continue</string>
+    <string name="menu_settings">Settings</string>
+    <string name="settings_text">
+        Select your settings, and then click on the Submit button.
+    </string>
+    
 
 </resources>

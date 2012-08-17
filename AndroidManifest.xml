@@ -21,8 +21,8 @@
             </intent-filter>
         </activity>
         <activity
-            android:label="@string/app_name"
-            android:name=".ChooseSettings" >
+            android:name="ChooseSettings" 
+        >
         </activity>
     </application>
 
