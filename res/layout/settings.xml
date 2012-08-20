@@ -1,17 +1,279 @@
-<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:id="@+id/LinearLayoutOverall"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
     android:orientation="vertical" >
-    
-    <TextView 
+
+    <TextView
+        android:id="@+id/TextViewInstructions"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:padding="@dimen/padding_medium"
-        android:text="@string/settings_text"
-    />
-    
+        android:text="@string/settings_text" />
 
-</LinearLayout>
+    <LinearLayout
+        android:id="@+id/LinearLayoutServices"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"  
+        >
+
+        <LinearLayout
+            android:id="@+id/LinearLayoutWifi"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" 
+            android:background="@color/gray_dark"
+            >
+
+            <TextView
+                android:id="@+id/textView1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="WiFi" />
+
+            <RadioGroup
+                android:id="@+id/RadioGroupWifi"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" 
+                >
+
+                <RadioButton
+                    android:id="@+id/WifiOff"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Off" 
+                     
+                    />
+
+                <RadioButton
+                    android:id="@+id/WifiOn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="On" 
+                     
+                    />
+            </RadioGroup>
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view1"
+            android:layout_width="5dp"
+            android:layout_height="match_parent" />
+
+        <LinearLayout
+            android:id="@+id/LinearLayoutGPS"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical" 
+            android:background="@color/gray_dark"
+            >
+
+            <TextView
+                android:id="@+id/textView2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="GPS" />
+
+            <RadioGroup
+                android:id="@+id/RadopGroupGPS"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <RadioButton
+                    android:id="@+id/GPSoff"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Off" 
+                     
+                    />
+
+                <RadioButton
+                    android:id="@+id/GPSon"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="On" 
+                     
+                    />
+            </RadioGroup>
+        </LinearLayout>
+
+        <View
+            android:id="@+id/view2"
+            android:layout_width="5dp"
+            android:layout_height="5dp" />
+
+        <LinearLayout
+            android:id="@+id/LinearLayoutBluetooth"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:orientation="vertical" 
+            android:background="@color/gray_dark"
+            >
+
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Bluetooth" />
+
+            <RadioGroup
+                android:id="@+id/RadioGroupBluetooth"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <RadioButton
+                    android:id="@+id/BluetoothOff"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Off" 
+                     
+                    />
+
+                <RadioButton
+                    android:id="@+id/BluetoothOn"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="On" 
+                     
+                    />
+            </RadioGroup>
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <View
+        android:id="@+id/view3"
+        android:layout_width="match_parent"
+        android:layout_height="5dp" />
+
+    <LinearLayout
+        android:id="@+id/LinearLayoutLight"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@color/gray_dark"
+        android:orientation="horizontal" >
+
+        <LinearLayout
+            android:id="@+id/LinearLayoutColor"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical" 
+            >
+
+            <TextView
+                android:id="@+id/Color"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Color" 
+                />
+
+            <RadioGroup
+                android:id="@+id/RadioGroupColor"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" >
+
+                <RadioButton
+                    android:id="@+id/ButtonRed"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:checked="true"
+                    android:text="Red" 
+                    android:textColor="@color/red_bright" 
+                    />
+
+                <RadioButton
+                    android:id="@+id/ButtonGreen"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Green" 
+                    android:textColor="@color/green_bright" 
+                    />
+
+                <RadioButton
+                    android:id="@+id/ButtonYellow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Yellow" 
+                    android:textColor="@color/yellow_bright"
+                    />
+
+                <RadioButton
+                    android:id="@+id/ButtonWhite"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="White" 
+                    android:textColor="@color/white_bright"
+                    />
+
+                </RadioGroup>
+
+            </LinearLayout>
+
+        <View
+            android:id="@+id/view4"
+            android:layout_width="5dip"
+            android:layout_height="match_parent"
+            android:background="@color/black" />
+
+            <LinearLayout
+                android:id="@+id/LinearLayoutBrightness"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical" >
+
+                <TextView
+                    android:id="@+id/TextViewBrightness"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="Brightness (0-15)" />
+
+                <TextView
+                    android:id="@+id/Brightness_Setting"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="1" 
+                    android:layout_gravity="center_horizontal"
+                    android:textStyle="bold"
+                    android:textSize="15sp"
+                    
+                    />
+                
+                    <TextView
+                    android:id="@+id/Brightness_Sample"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:text="light" 
+                    android:layout_gravity="center_horizontal"
+                    android:textColor="#110000"
+                    android:background="#110000"
+                    android:textStyle="bold"
+                    android:textSize="15sp"
+                    
+                    />
+
+                <SeekBar
+                    android:id="@+id/seekBar1"
+                    android:layout_width="fill_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10px"
+					android:max="15"
+					android:progress="1"
+                    />
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/button_submit"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Submit" />
+
+    </LinearLayout>
