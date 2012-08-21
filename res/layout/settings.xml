@@ -232,33 +232,28 @@
                     android:text="Brightness (0-15)" />
 
                 <TextView
-                    android:id="@+id/Brightness_Setting"
+                    android:id="@+id/TextViewBrightnessLevel"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="1" 
                     android:layout_gravity="center_horizontal"
-                    android:textStyle="bold"
-                    android:textSize="15sp"
                     
                     />
                 
                     <TextView
-                    android:id="@+id/Brightness_Sample"
+                    android:id="@+id/TextViewBlank"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:text="light" 
                     android:layout_gravity="center_horizontal"
-                    android:textColor="#110000"
-                    android:background="#110000"
-                    android:textStyle="bold"
-                    android:textSize="15sp"
+                    
                     
                     />
 
                 <SeekBar
-                    android:id="@+id/seekBar1"
+                    android:id="@+id/SeekBarBrightness"
                     android:layout_width="fill_parent"
                     android:layout_height="wrap_content"
                     android:layout_margin="10px"
@@ -271,7 +266,7 @@
         </LinearLayout>
 
         <Button
-            android:id="@+id/button_submit"
+            android:id="@+id/ButtonSubmit"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="Submit" />
