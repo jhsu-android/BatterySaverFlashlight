@@ -1,9 +1,14 @@
 package com.jasonhsu.batterysaverflashlight;
 
 import android.app.Activity;
+import android.content.BroadcastReceiver;
+import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
+import android.graphics.Color;
+import android.net.wifi.WifiManager;
 import android.os.Bundle;
 import android.view.View;
-import android.view.ViewGroup.LayoutParams;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.RadioButton;
@@ -14,12 +19,13 @@ public class ChooseSettings extends Activity {
 	
 	// The screen you see after you click Submit
 	private LinearLayout FlashlightScreen;
-	private LinearLayout StatusColor;
-	private LinearLayout StatusWifi;
-	private LinearLayout StatusGPS;
-	private LinearLayout StatusBluetooth;
+	TextView StatusWifi;
+	TextView StatusGPS;
+	TextView StatusBluetooth;
 	
+	int n_brightness;
 	int color_code;
+	
 	
 	// @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -73,7 +79,7 @@ public class ChooseSettings extends Activity {
 				
 				// Status of inputs
 		        // Get the brightness setting
-			    int n_brightness = Integer.parseInt(BrightnessValue.getText().toString());
+			    n_brightness = Integer.parseInt(BrightnessValue.getText().toString());
 			    
 			    // Convert the brightness setting into possible RGB values
 			    int shade_red = rgb (n_brightness, 0, 0);
@@ -100,15 +106,13 @@ public class ChooseSettings extends Activity {
 					color_code = shade_white;
 				}
 
+				CreateFlashlightScreen();
 			    
-				FlashlightScreenBackground();
-			    AddStatusColor();
-			    
-				
-				
+
 				setContentView(FlashlightScreen); // Displays new screen
 
-
+				// Remove the title bar
+		    	//requestWindowFeature(Window.FEATURE_NO_TITLE);
 				
 			}
 		});
@@ -123,22 +127,64 @@ public class ChooseSettings extends Activity {
     	return total;
     }
     
-    private void AddStatusColor() {
+    private void CreateFlashlightScreen() {
+    	// Provides the appropriate screen color and brightness
     	FlashlightScreen = new LinearLayout(this);
+    	String hex_color = String.format("#%06X", (0xFFFFFF & color_code));
+    	FlashlightScreen.setBackgroundColor(Color.parseColor(hex_color));
     	
-    	FlashlightScreen.setLayoutParams(new LayoutParams (LayoutParams.FILL_PARENT,
-    		LayoutParams.WRAP_CONTENT));
-    	FlashlightScreen.setOrientation(LinearLayout.VERTICAL);
+    	// Provide brightness setting
+    	TextView TextViewBright = new TextView (this);
+    	TextViewBright.setText("Brightness: " + String.valueOf(n_brightness));
+    	FlashlightScreen.addView(TextViewBright);
     	
-    	TextView TextView1 = new TextView (this);
-    	TextView1.setText(String.valueOf(color_code));
-	    
-	    FlashlightScreen.addView(TextView1);
-	    FlashlightScreen.setBackgroundColor(color_code);
+    	// Wifi status
+    	// NOTE: This does NOT work in the AVD, only on an actual device.
+    	StatusWifi = new TextView (this);
+    	this.registerReceiver(this.WifiStateChangedReceiver, new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION));
+    	FlashlightScreen.addView(StatusWifi);
+    	
+    	// Black text for bright background, white text for dark background
+    	if (n_brightness > 7) {
+    		TextViewBright.setTextColor(getResources().getColor(R.color.black));
+    		StatusWifi.setTextColor(getResources().getColor(R.color.black));
+    	}
+    	else {
+    		TextViewBright.setTextColor(getResources().getColor(R.color.white_bright));
+    		StatusWifi.setTextColor(getResources().getColor(R.color.white_bright));
+    	}
+    	
+
     }
-    private void FlashlightScreenBackground() {
-    	FlashlightScreen = new LinearLayout(this);
-    	FlashlightScreen.setBackgroundColor(color_code);
-    }
+    
+    private BroadcastReceiver WifiStateChangedReceiver
+    = new BroadcastReceiver(){
+
+		@Override
+		public void onReceive(Context context, Intent intent) {
+			// TODO Auto-generated method stub
+			
+			int extraWifiState = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE , 
+					WifiManager.WIFI_STATE_UNKNOWN);
+			
+			switch(extraWifiState){
+			case WifiManager.WIFI_STATE_DISABLED:
+				StatusWifi.setText("\nWiFi Status: Disabled");
+				break;
+			case WifiManager.WIFI_STATE_DISABLING:
+				StatusWifi.setText("\nWiFi Status: Disabling");
+				break;
+			case WifiManager.WIFI_STATE_ENABLED:
+				StatusWifi.setText("\nWifi Status: Enabled");
+				break;
+			case WifiManager.WIFI_STATE_ENABLING:
+				StatusWifi.setText("\nWifi Status: Enabling");
+				break;
+			case WifiManager.WIFI_STATE_UNKNOWN:
+				StatusWifi.setText("\nWiFi Status: Unknown");
+				break;
+			}
+			
+		}};
 
 }
