@@ -2,3 +2,5 @@ Welcome to the Battery Saver Flashlight!
 
 There are many Android flashlight apps.  What makes this Android app unique is that it provides the user the option
 of turning off WiFi, GPS, Bluetooth, and/or cellular services in order to conserve battery power.
+
+Please note that the Wifi, GPS, and Bluetooth functionality do NOT work with the AVD.

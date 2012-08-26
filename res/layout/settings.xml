@@ -1,274 +1,305 @@
+<?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/LinearLayoutOverall"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
     android:orientation="vertical" >
 
     <TextView
-        android:id="@+id/TextViewInstructions"
+        android:id="@+id/textView1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/settings_text" />
+        android:text="@string/instructions_services" />
 
-    <LinearLayout
-        android:id="@+id/LinearLayoutServices"
+    <TableLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:orientation="horizontal"  
-        >
+        android:background="@color/blue_bright" >
 
-        <LinearLayout
-            android:id="@+id/LinearLayoutWifi"
+        <TableRow
+            android:id="@+id/tableRow1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:orientation="vertical" 
-            android:background="@color/gray_dark"
-            >
-
-            <TextView
-                android:id="@+id/textView1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="WiFi" />
-
-            <RadioGroup
-                android:id="@+id/RadioGroupWifi"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" 
-                >
-
-                <RadioButton
-                    android:id="@+id/WifiOff"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="true"
-                    android:text="Off" 
-                     
-                    />
-
-                <RadioButton
-                    android:id="@+id/WifiOn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="On" 
-                     
-                    />
-            </RadioGroup>
-        </LinearLayout>
-
-        <View
-            android:id="@+id/view1"
-            android:layout_width="5dp"
-            android:layout_height="match_parent" />
-
-        <LinearLayout
-            android:id="@+id/LinearLayoutGPS"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical" 
-            android:background="@color/gray_dark"
-            >
+            android:layout_gravity="center"
+            android:layout_margin="2dip" >
 
             <TextView
                 android:id="@+id/textView2"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="GPS" />
-
-            <RadioGroup
-                android:id="@+id/RadopGroupGPS"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
-
-                <RadioButton
-                    android:id="@+id/GPSoff"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="true"
-                    android:text="Off" 
-                     
-                    />
-
-                <RadioButton
-                    android:id="@+id/GPSon"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="On" 
-                     
-                    />
-            </RadioGroup>
-        </LinearLayout>
-
-        <View
-            android:id="@+id/view2"
-            android:layout_width="5dp"
-            android:layout_height="5dp" />
-
-        <LinearLayout
-            android:id="@+id/LinearLayoutBluetooth"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:orientation="vertical" 
-            android:background="@color/gray_dark"
-            >
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_margin="2dip"
+                android:background="@color/black"
+                android:text="Service" />
 
             <TextView
                 android:id="@+id/textView3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_margin="2dip"
+                android:background="@color/black"
+                android:text="WiFi" />
+
+            <TextView
+                android:id="@+id/textView4"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_margin="2dip"
+                android:background="@color/black"
+                android:text="GPS" />
+
+            <TextView
+                android:id="@+id/textView5"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="2dip"
+                android:background="@color/black"
                 android:text="Bluetooth" />
 
-            <RadioGroup
-                android:id="@+id/RadioGroupBluetooth"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
+        </TableRow>
 
-                <RadioButton
-                    android:id="@+id/BluetoothOff"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="true"
-                    android:text="Off" 
-                     
-                    />
-
-                <RadioButton
-                    android:id="@+id/BluetoothOn"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="On" 
-                     
-                    />
-            </RadioGroup>
-
-        </LinearLayout>
-    </LinearLayout>
-
-    <View
-        android:id="@+id/view3"
-        android:layout_width="match_parent"
-        android:layout_height="5dp" />
-
-    <LinearLayout
-        android:id="@+id/LinearLayoutLight"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:background="@color/gray_dark"
-        android:orientation="horizontal" >
-
-        <LinearLayout
-            android:id="@+id/LinearLayoutColor"
+        <TableRow
+            android:id="@+id/tableRow2"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:orientation="vertical" 
+            android:layout_height="wrap_content" 
+            android:layout_margin="2dip"
             >
 
             <TextView
-                android:id="@+id/Color"
+                android:id="@+id/textView6"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_margin="2dip"
+                android:background="@color/black"
+                android:text="Status" />
+
+            <TextView
+                android:id="@+id/textViewWIFIstatus"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="Color" 
+                android:layout_gravity="center"
+                android:layout_margin="2dip"
+                android:background="@color/black" />
+
+            <TextView
+                android:id="@+id/textViewGPSstatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="2dip"
+                android:background="@color/black" />
+
+            <TextView
+                android:id="@+id/textViewBLUETOOTHstatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="2dip"
+                android:background="@color/black" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow3"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" 
+            android:layout_margin="2dip"
+            >
+
+            <TextView
+                android:id="@+id/textView7"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_margin="2dip"
+                android:background="@color/black"
+                android:gravity="center"
+                android:text="Connect" />
+
+            <Button
+                android:id="@+id/button1"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:text="Enable" />
+
+            <Button
+                android:id="@+id/button2"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:text="Enable" />
+
+            <Button
+                android:id="@+id/button3"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:text="Enable" />
+
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" 
+            android:layout_margin="2dip"
+            >
+
+            <TextView
+                android:id="@+id/textView8"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:layout_margin="2dip"
+                android:background="@color/black"
+                android:gravity="center"
+                android:text="Conserve" />
+
+            <Button
+                android:id="@+id/button4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Disable" />
+
+            <Button
+                android:id="@+id/button5"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Disable" />
+
+            <Button
+                android:id="@+id/button6"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:text="Disable" />
+
+        </TableRow>
+
+    </TableLayout>
+
+    <View
+        android:id="@+id/view1"
+        android:layout_width="match_parent"
+        android:layout_height="10dip" />
+
+    <TextView
+        android:id="@+id/textView9"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/instructions_color" />
+
+    <View
+        android:id="@+id/view2"
+        android:layout_width="wrap_content"
+        android:layout_height="10dip" />
+
+    <TableLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" >
+
+        <TableRow
+            android:id="@+id/tableRow6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <Button
+                android:id="@+id/buttonRed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Red" />
+
+            <Button
+                android:id="@+id/buttonGreen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Green" />
+
+            <Button
+                android:id="@+id/buttonYellow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Yellow" />
+
+            <Button
+                android:id="@+id/buttonWhite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="White" />
+        </TableRow>
+
+        <TableRow
+            android:id="@+id/tableRow7"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/textViewRed"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Red" />
+
+            <TextView
+                android:id="@+id/textViewGreen"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Green" />
+
+            <TextView
+                android:id="@+id/textViewYellow"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Yellow" />
+
+            <TextView
+                android:id="@+id/textViewWhite"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="White" />
+        </TableRow>
+    </TableLayout>
+
+    <View
+        android:id="@+id/view3"
+        android:layout_width="wrap_content"
+        android:layout_height="20dip" />
+
+    <TableLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" >
+
+        <TableRow
+            android:id="@+id/tableRow5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" >
+
+            <TextView
+                android:id="@+id/textView10"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Brightness (0-15):   " />
+            
+            <SeekBar
+                android:id="@+id/seekBarBrightness"
+                android:layout_width="128dip"
+                android:layout_height="wrap_content" 
+                android:max="15"
+                android:progress="1"
                 />
 
-            <RadioGroup
-                android:id="@+id/RadioGroupColor"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content" >
 
-                <RadioButton
-                    android:id="@+id/ButtonRed"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:checked="true"
-                    android:text="Red" 
-                    android:textColor="@color/red_bright" 
-                    />
 
-                <RadioButton
-                    android:id="@+id/ButtonGreen"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Green" 
-                    android:textColor="@color/green_bright" 
-                    />
+        </TableRow>
+    </TableLayout>
 
-                <RadioButton
-                    android:id="@+id/ButtonYellow"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Yellow" 
-                    android:textColor="@color/yellow_bright"
-                    />
+    <TextView
+        android:id="@+id/textViewBrightness"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
 
-                <RadioButton
-                    android:id="@+id/ButtonWhite"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="White" 
-                    android:textColor="@color/white_bright"
-                    />
-
-                </RadioGroup>
-
-            </LinearLayout>
-
-        <View
-            android:id="@+id/view4"
-            android:layout_width="5dip"
-            android:layout_height="match_parent"
-            android:background="@color/black" />
-
-            <LinearLayout
-                android:id="@+id/LinearLayoutBrightness"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical" >
-
-                <TextView
-                    android:id="@+id/TextViewBrightness"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="Brightness (0-15)" />
-
-                <TextView
-                    android:id="@+id/TextViewBrightnessLevel"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="1" 
-                    android:layout_gravity="center_horizontal"
-                    
-                    />
-                
-                    <TextView
-                    android:id="@+id/TextViewBlank"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="light" 
-                    android:layout_gravity="center_horizontal"
-                    
-                    
-                    />
-
-                <SeekBar
-                    android:id="@+id/SeekBarBrightness"
-                    android:layout_width="fill_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="10px"
-					android:max="15"
-					android:progress="1"
-                    />
-
-            </LinearLayout>
-
-        </LinearLayout>
-
-        <Button
-            android:id="@+id/ButtonSubmit"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Submit" />
-
-    </LinearLayout>
+</LinearLayout>

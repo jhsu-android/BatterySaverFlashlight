@@ -1,123 +1,54 @@
 package com.jasonhsu.batterysaverflashlight;
 
 import android.app.Activity;
-import android.content.BroadcastReceiver;
-import android.content.Context;
-import android.content.Intent;
-import android.content.IntentFilter;
 import android.graphics.Color;
-import android.net.wifi.WifiManager;
 import android.os.Bundle;
-import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.RadioButton;
 import android.widget.SeekBar;
 import android.widget.TextView;
 
 public class ChooseSettings extends Activity {
 	
-	// The screen you see after you click Submit
-	private LinearLayout FlashlightScreen;
-	TextView StatusWifi;
-	TextView StatusGPS;
-	TextView StatusBluetooth;
-	
-	int n_brightness;
+	private int n_brightness;
+	int n_red, n_green, n_yellow, n_white;
 	int color_code;
-	
-	
-	// @Override
+	SeekBar BrightnessBar;
+	TextView TextViewRed, TextViewGreen, TextViewYellow, TextViewWhite;
+	TextView TextViewBrightness;
+
+    @Override
     public void onCreate(Bundle savedInstanceState) {
-    	super.onCreate(savedInstanceState);
-        // Set up layout from /res/layout/settings.xml
+        super.onCreate(savedInstanceState);
         setContentView(R.layout.settings);
-
-        // Get brightness value from the SeekBar
-        SeekBar BrightnessBar = (SeekBar)findViewById(R.id.SeekBarBrightness);
-        final TextView BrightnessValue = (TextView)findViewById(R.id.TextViewBrightnessLevel);
         
-        // When the user changes the brightness value
-        BrightnessBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
-			
-			@Override
-			public void onStopTrackingTouch(SeekBar seekBar) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			@Override
-			public void onStartTrackingTouch(SeekBar seekBar) {
-				// TODO Auto-generated method stub
-				
-			}
-			
-			
-			// Executes when the user changes the value in the SeekBar
-			@Override
-			public void onProgressChanged(SeekBar seekBar, int progress,
-					boolean fromUser) {
-				// TODO Auto-generated method stub
-				// Update the displayed brightness value according to the SeekBar
-				BrightnessValue.setText(String.valueOf(progress));
-					
-			}
-			
-		});
-        
-        
-        
-		// Executes when the user clicks on Submit
-		Button Button1;
-		Button1 = (Button) findViewById(R.id.ButtonSubmit);
-				
-		Button1.setOnClickListener(new View.OnClickListener() {
-			
-			@Override
-			public void onClick(View v) {
-				// TODO Auto-generated method stub
-				
-				// Status of inputs
-		        // Get the brightness setting
-			    n_brightness = Integer.parseInt(BrightnessValue.getText().toString());
-			    
-			    // Convert the brightness setting into possible RGB values
-			    int shade_red = rgb (n_brightness, 0, 0);
-			    int shade_green = rgb (0, n_brightness, 0);
-			    int shade_yellow = rgb (n_brightness, n_brightness, 0);
-			    int shade_white = rgb (n_brightness, n_brightness, n_brightness);
-			    
-			    // Check which color is selected
-				RadioButton IsRed = (RadioButton) findViewById(R.id.ButtonRed);
-			    RadioButton IsGreen = (RadioButton) findViewById(R.id.ButtonGreen);
-			    RadioButton IsYellow = (RadioButton) findViewById(R.id.ButtonYellow);
-
-			    // Pick the appropriate RGB value based on the color selected
-			    if (IsRed.isChecked()) {
-					color_code = shade_red;
-				}
-				else if (IsGreen.isChecked()) {
-					color_code = shade_green;
-				}
-				else if (IsYellow.isChecked()) {
-					color_code = shade_yellow;
-				}
-				else {
-					color_code = shade_white;
-				}
-
-				CreateFlashlightScreen();
-			    
-
-				setContentView(FlashlightScreen); // Displays new screen
-
-				// Remove the title bar
-		    	//requestWindowFeature(Window.FEATURE_NO_TITLE);
-				
-			}
-		});
-				
+        // Brightness Bar and Its Effects
+        // Based on 
+        // http://android-er.blogspot.com/2009/08/change-background-color-by-seekbar.html
+        BrightnessBar = (SeekBar)findViewById(R.id.seekBarBrightness);
+        TextViewRed = (TextView)findViewById(R.id.textViewRed);       
+        TextViewGreen = (TextView)findViewById(R.id.textViewGreen);
+        TextViewYellow = (TextView)findViewById(R.id.textViewYellow);
+        TextViewWhite = (TextView)findViewById(R.id.textViewWhite);
+        TextViewBrightness = (TextView)findViewById(R.id.textViewBrightness);
+        UpdateBrightness();
+        BrightnessBar.setOnSeekBarChangeListener(seekBarChangeListener);
     }
+    
+    private SeekBar.OnSeekBarChangeListener seekBarChangeListener 
+    		= new SeekBar.OnSeekBarChangeListener () {
+    	
+    	@Override
+    	public void onProgressChanged (SeekBar seekbar, int progress, boolean fromUser) {
+    		UpdateBrightness();
+    	}
+    	
+		@Override
+		public void onStartTrackingTouch(SeekBar seekBar) {
+		}
+
+		@Override
+		public void onStopTrackingTouch(SeekBar seekBar) {
+		}
+    };
     
     private int rgb (int r_local, int g_local, int b_local) {
     	int r_rgb = r_local * 17;
@@ -127,64 +58,59 @@ public class ChooseSettings extends Activity {
     	return total;
     }
     
-    private void CreateFlashlightScreen() {
-    	// Provides the appropriate screen color and brightness
-    	FlashlightScreen = new LinearLayout(this);
-    	String hex_color = String.format("#%06X", (0xFFFFFF & color_code));
-    	FlashlightScreen.setBackgroundColor(Color.parseColor(hex_color));
-    	
-    	// Provide brightness setting
-    	TextView TextViewBright = new TextView (this);
-    	TextViewBright.setText("Brightness: " + String.valueOf(n_brightness));
-    	FlashlightScreen.addView(TextViewBright);
-    	
-    	// Wifi status
-    	// NOTE: This does NOT work in the AVD, only on an actual device.
-    	StatusWifi = new TextView (this);
-    	this.registerReceiver(this.WifiStateChangedReceiver, new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION));
-    	FlashlightScreen.addView(StatusWifi);
-    	
-    	// Black text for bright background, white text for dark background
-    	if (n_brightness > 7) {
-    		TextViewBright.setTextColor(getResources().getColor(R.color.black));
-    		StatusWifi.setTextColor(getResources().getColor(R.color.black));
-    	}
-    	else {
-    		TextViewBright.setTextColor(getResources().getColor(R.color.white_bright));
-    		StatusWifi.setTextColor(getResources().getColor(R.color.white_bright));
-    	}
-    	
-
+    private String rgb_hex (int r_local, int g_local, int b_local) {
+    	int rgb_local = rgb (r_local, g_local, b_local);
+    	String result = String.format("#%06X", (0xFFFFFF & rgb_local));
+    	return result;
     }
     
-    private BroadcastReceiver WifiStateChangedReceiver
-    = new BroadcastReceiver(){
+    private int rgb_bk (int r_local, int g_local, int b_local) {
+    	String hex_local = rgb_hex (r_local, g_local, b_local);
+    	int result = Color.parseColor(hex_local);
+    	return result;
+    }
+    
+    private int red_bk (int n_brightness) {
+    	int result = rgb_bk (n_brightness, 0, 0);
+    	return result;
+    }
+    
+    private int green_bk (int n_brightness) {
+    	int result = rgb_bk (0, n_brightness, 0);
+    	return result;
+    }
+    
+    private int yellow_bk (int n_brightness) {
+    	int result = rgb_bk (n_brightness, n_brightness, 0);
+    	return result;
+    }
+    
+    private int white_bk (int n_brightness) {
+    	int result = rgb_bk (n_brightness, n_brightness, n_brightness);
+    	return result;
+    }
 
-		@Override
-		public void onReceive(Context context, Intent intent) {
-			// TODO Auto-generated method stub
-			
-			int extraWifiState = intent.getIntExtra(WifiManager.EXTRA_WIFI_STATE , 
-					WifiManager.WIFI_STATE_UNKNOWN);
-			
-			switch(extraWifiState){
-			case WifiManager.WIFI_STATE_DISABLED:
-				StatusWifi.setText("\nWiFi Status: Disabled");
-				break;
-			case WifiManager.WIFI_STATE_DISABLING:
-				StatusWifi.setText("\nWiFi Status: Disabling");
-				break;
-			case WifiManager.WIFI_STATE_ENABLED:
-				StatusWifi.setText("\nWifi Status: Enabled");
-				break;
-			case WifiManager.WIFI_STATE_ENABLING:
-				StatusWifi.setText("\nWifi Status: Enabling");
-				break;
-			case WifiManager.WIFI_STATE_UNKNOWN:
-				StatusWifi.setText("\nWiFi Status: Unknown");
-				break;
-			}
-			
-		}};
 
+    private void UpdateBrightness () {
+    	n_brightness = BrightnessBar.getProgress();
+    	
+    	n_red = red_bk (n_brightness);
+    	n_green = green_bk (n_brightness);
+    	n_yellow = yellow_bk (n_brightness);
+    	n_white = white_bk (n_brightness);
+    	
+    	TextViewRed.setBackgroundColor(n_red);
+    	TextViewRed.setTextColor(n_red);
+    	
+    	TextViewGreen.setBackgroundColor(n_green);
+    	TextViewGreen.setTextColor(n_green);
+    	
+    	TextViewYellow.setBackgroundColor(n_yellow);
+    	TextViewYellow.setTextColor(n_yellow);
+    	
+    	TextViewWhite.setBackgroundColor(n_white);
+    	TextViewWhite.setTextColor(n_white);
+    	
+    	TextViewBrightness.setText(String.valueOf(n_brightness));
+    }
 }
