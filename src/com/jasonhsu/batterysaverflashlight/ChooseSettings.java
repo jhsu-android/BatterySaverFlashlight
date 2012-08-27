@@ -1,5 +1,9 @@
 package com.jasonhsu.batterysaverflashlight;
 
+import java.util.concurrent.Executors;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
+
 import android.app.Activity;
 import android.bluetooth.BluetoothAdapter;
 import android.content.BroadcastReceiver;
@@ -11,12 +15,16 @@ import android.graphics.Color;
 import android.location.LocationManager;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.provider.Settings;
 import android.view.View;
 import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+
+
 
 public class ChooseSettings extends Activity {
 	
@@ -46,15 +54,31 @@ public class ChooseSettings extends Activity {
 	
 	// For flashlight screen
 	private LinearLayout FlashlightScreen;
+	
+	ScheduledExecutorService scheduledExecutorService;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings);
         
-        // WiFi
-        UpdateWifiStatus1();
+        // Update WiFi, Bluetooth, and GPS status
+        UpdateStatus1 ();
         
+        // Automatically update WiFi, Bluetooth, and GPS status
+        
+        
+        // Automatically update the Wifi, Bluetooth, and GPS 
+        ScheduledExecutorService scheduledExecutorService;
+        scheduledExecutorService = Executors.newScheduledThreadPool(1);
+        
+        scheduledExecutorService.scheduleWithFixedDelay( new Runnable(){
+			@Override
+			public void run() {
+				handler_update.sendMessage(handler_update.obtainMessage());
+			}
+		},1,1,TimeUnit.SECONDS);
+                
         // When you enable WiFi
         Button ButtonWifiOn = (Button)findViewById(R.id.buttonWIFIon);
         ButtonWifiOn.setOnClickListener (new Button.OnClickListener () {
@@ -75,13 +99,15 @@ public class ChooseSettings extends Activity {
         	}
         });
         
-        // Update Bluetooth status
-        UpdateBluetoothStatus1 ();
-        
         // When you enable Bluetooth
         Button ButtonBluetoothOn = (Button)findViewById(R.id.buttonBLUETOOTHon);
         ButtonBluetoothOn.setOnClickListener(new Button.OnClickListener () {
         	public void onClick(View arg0) {
+        		// Show that the system is in the process of enabling Bluetooth
+        		TextViewBluetooth1 = (TextView)findViewById(R.id.textViewBLUETOOTHstatus);
+        		TextViewBluetooth1.setText("Enabling");
+        		TextViewBluetooth1.setTextColor(getResources().getColor(R.color.yellow_bright));
+        		
         		BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
         		mBluetoothAdapter.enable();
         		UpdateBluetoothStatus1 ();
@@ -97,9 +123,6 @@ public class ChooseSettings extends Activity {
         		UpdateBluetoothStatus1 ();
         	}
         });
-        
-        // Update GPS status
-        UpdateGPSstatus1 ();
         
         // When you change GPS
         Button ButtonGPSOn = (Button)findViewById(R.id.buttonGPSchange);
@@ -443,4 +466,17 @@ public class ChooseSettings extends Activity {
 			TextViewGPS1.setTextColor(getResources().getColor(R.color.blue_bright));
 		}
 	}
+	
+	private void UpdateStatus1 () {
+		UpdateWifiStatus1();
+		UpdateBluetoothStatus1();
+		UpdateGPSstatus1();
+	}
+	
+    Handler handler_update = new Handler(){   	 
+    	@Override
+    	public void handleMessage(Message msg) {
+    		UpdateStatus1();
+    	}
+    };
 }
