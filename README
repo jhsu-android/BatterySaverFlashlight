@@ -4,3 +4,7 @@ There are many Android flashlight apps.  What makes this Android app unique is t
 of turning off WiFi, GPS, Bluetooth, and/or cellular services in order to conserve battery power.
 
 Please note that the Wifi, GPS, and Bluetooth functionality do NOT work with the AVD.
+
+Changes to make:
+Make the automatic updates of the WiFi, Bluetooth, and GPS status work properly.  (Using ScheduledExecutorService to do
+this destabilized the app and caused it to quit unexpectedly.)  Apparently, there was a memory leak.

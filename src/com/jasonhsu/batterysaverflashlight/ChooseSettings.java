@@ -25,24 +25,16 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 
-
 public class ChooseSettings extends Activity {
-	
-	// WiFi configuration and status 
-	// Based on
-	// http://android-er.blogspot.com/2011/01/turn-wifi-onoff-using.html
 	TextView TextViewWifi1, TextViewWifi2;
 	
 	// Bluetooth configuration and status 
 	TextView TextViewBluetooth1, TextViewBluetooth2;
 	
 	// GPS configuration and status 
-	// Based on 
-	// http://android-coding.blogspot.com/2011/04/detect-gps-onoff-status-using.html
-	// http: //androidfreakers.blogspot.com/2011/09/enable-or-disable-gps-in-android.html
 	TextView TextViewGPS1, TextViewGPS2;
 	
-
+	TextView TextViewNotes;
 	
 	// For brightness settings
 	private int n_brightness;
@@ -65,19 +57,16 @@ public class ChooseSettings extends Activity {
         // Update WiFi, Bluetooth, and GPS status
         UpdateStatus1 ();
         
-        // Automatically update WiFi, Bluetooth, and GPS status
-        
-        
-        // Automatically update the Wifi, Bluetooth, and GPS 
-        ScheduledExecutorService scheduledExecutorService;
-        scheduledExecutorService = Executors.newScheduledThreadPool(1);
-        
-        scheduledExecutorService.scheduleWithFixedDelay( new Runnable(){
-			@Override
-			public void run() {
-				handler_update.sendMessage(handler_update.obtainMessage());
-			}
-		},1,1,TimeUnit.SECONDS);
+        // Automatically update the Wifi, Bluetooth, and GPS
+        //ScheduledExecutorService scheduledExecutorService;
+        //scheduledExecutorService = Executors.newScheduledThreadPool(1);
+      
+        //scheduledExecutorService.scheduleWithFixedDelay( new Runnable(){
+			//@Override
+			//public void run() {
+				//handler_update.sendMessage(handler_update.obtainMessage());
+			//}
+		//},1,1,TimeUnit.SECONDS);
                 
         // When you enable WiFi
         Button ButtonWifiOn = (Button)findViewById(R.id.buttonWIFIon);
@@ -129,20 +118,13 @@ public class ChooseSettings extends Activity {
         ButtonGPSOn.setOnClickListener(new Button.OnClickListener () {
         	@Override
         	public void onClick(View arg0) {
-        		// Based on 
-        		// http://www.vogella.com/articles/AndroidLocationAPI/article.html#checklocationapi
         		Intent intent = new Intent(Settings.ACTION_LOCATION_SOURCE_SETTINGS);
         		startActivity(intent);
         		UpdateGPSstatus1 ();
         	}
         });
-        	
-        
-        
         
         // Brightness Bar and Its Effects
-        // Based on 
-        // http://android-er.blogspot.com/2009/08/change-background-color-by-seekbar.html
         BrightnessBar = (SeekBar)findViewById(R.id.seekBarBrightness);
         TextViewRed = (TextView)findViewById(R.id.textViewRed);       
         TextViewGreen = (TextView)findViewById(R.id.textViewGreen);
@@ -303,7 +285,6 @@ public class ChooseSettings extends Activity {
     	FlashlightScreen.addView(TextViewWifi2);
     	
     	// Bluetooth status
-    	// From http://androiddesk.wordpress.com/2012/05/14/bluetooth-in-android/
     	TextViewBluetooth2 = new TextView (this);
     	BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
     	if (mBluetoothAdapter == null) {
@@ -321,8 +302,6 @@ public class ChooseSettings extends Activity {
     	FlashlightScreen.addView(TextViewBluetooth2);
     	
     	// GPS status
-    	// Using the example at
-    	// http://android-coding.blogspot.com/2011/04/detect-gps-onoff-status-using.html
     	TextViewGPS2 = new TextView (this);
     	ContentResolver contentResolver = getBaseContext().getContentResolver();
         boolean GPS_TF = Settings.Secure.isLocationProviderEnabled(contentResolver, LocationManager.GPS_PROVIDER);
@@ -334,19 +313,28 @@ public class ChooseSettings extends Activity {
         }
     	FlashlightScreen.addView(TextViewGPS2);
     	
+    	// Add other notes
+    	TextViewNotes = new TextView (this);
+    	TextViewNotes.setText("");
+    	FlashlightScreen.addView(TextViewNotes);
+    	
+    	
     	// Black text for bright background, white text for dark background
     	if (n_brightness > 7) {
     		TextViewBright.setTextColor(getResources().getColor(R.color.black));
     		TextViewWifi2.setTextColor(getResources().getColor(R.color.black));
     		TextViewBluetooth2.setTextColor(getResources().getColor(R.color.black));
     		TextViewGPS2.setTextColor(getResources().getColor(R.color.black));
+    		TextViewNotes.setTextColor(getResources().getColor(R.color.black));
     	}
     	else {
     		TextViewBright.setTextColor(getResources().getColor(R.color.white_bright));
     		TextViewWifi2.setTextColor(getResources().getColor(R.color.white_bright));
     		TextViewBluetooth2.setTextColor(getResources().getColor(R.color.white_bright));
     		TextViewGPS2.setTextColor(getResources().getColor(R.color.white_bright));
+    		TextViewNotes.setTextColor(getResources().getColor(R.color.white_bright));
     	}
+    	
     	
     }
     
@@ -423,12 +411,6 @@ public class ChooseSettings extends Activity {
 				new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION));
 	}
 	
-	private void UpdateWifiStatus2 () {
-		TextViewWifi2 = (TextView)findViewById(R.id.textViewWIFIstatus);
-		this.registerReceiver(this.WifiStateChangedReceiver1,
-				new IntentFilter(WifiManager.WIFI_STATE_CHANGED_ACTION));
-	}
-	
 	private void UpdateBluetoothStatus1 () {
 		TextViewBluetooth1 = (TextView)findViewById(R.id.textViewBLUETOOTHstatus);
 		BluetoothAdapter mBluetoothAdapter = BluetoothAdapter.getDefaultAdapter();
@@ -473,10 +455,33 @@ public class ChooseSettings extends Activity {
 		UpdateGPSstatus1();
 	}
 	
-    Handler handler_update = new Handler(){   	 
+    Handler handler_update = new Handler(){ 
     	@Override
     	public void handleMessage(Message msg) {
     		UpdateStatus1();
     	}
     };
 }
+
+// WiFi configuration and status 
+// Based on
+// http://android-er.blogspot.com/2011/01/turn-wifi-onoff-using.html
+
+// GPS configuration and status
+// Based on 
+// http://android-coding.blogspot.com/2011/04/detect-gps-onoff-status-using.html
+// http: //androidfreakers.blogspot.com/2011/09/enable-or-disable-gps-in-android.html 
+// http://www.vogella.com/articles/AndroidLocationAPI/article.html#checklocationapi
+
+// Bluetooth configuration and status based on
+// From http://androiddesk.wordpress.com/2012/05/14/bluetooth-in-android/
+
+// Automatic status updates based on
+// http://android-coding.blogspot.com/2012/06/javautilconcurrentscheduledexecutorserv.html
+
+// Brightness bar and its effects based on  
+// http://android-er.blogspot.com/2009/08/change-background-color-by-seekbar.html
+
+// NOTE: Using ScheduledExecutorService to automatically update the
+// WiFi, Bluetooth, and GPS status destabilized the app and caused it to
+// quit unexpectedly.  Apparently, there was a memory leak.
