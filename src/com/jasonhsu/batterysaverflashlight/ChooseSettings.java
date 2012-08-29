@@ -352,7 +352,7 @@ public class ChooseSettings extends Activity {
 			switch(extraWifiState){
 			case WifiManager.WIFI_STATE_DISABLED:
 				TextViewWifi1.setText ("Disabled");
-				TextViewWifi1.setTextColor(getResources().getColor(R.color.blue_bright));
+				TextViewWifi1.setTextColor(getResources().getColor(R.color.aqua_bright));
 				break;
 			case WifiManager.WIFI_STATE_DISABLING:
 				TextViewWifi1.setText("Disabling");
@@ -417,7 +417,7 @@ public class ChooseSettings extends Activity {
     	if (mBluetoothAdapter == null) {
     	    // Device does not support Bluetooth
     		TextViewBluetooth1.setText("N/A");
-    		TextViewBluetooth1.setTextColor(getResources().getColor(R.color.blue_bright));
+    		TextViewBluetooth1.setTextColor(getResources().getColor(R.color.aqua_bright));
     	}
     	else { 
     		if (mBluetoothAdapter.isEnabled()) {
@@ -430,7 +430,7 @@ public class ChooseSettings extends Activity {
     		}
     		else {
     			TextViewBluetooth1.setText("Disabled");
-    			TextViewBluetooth1.setTextColor(getResources().getColor(R.color.blue_bright));
+    			TextViewBluetooth1.setTextColor(getResources().getColor(R.color.aqua_bright));
     		}
     	}
 	}
@@ -445,7 +445,7 @@ public class ChooseSettings extends Activity {
 		}
 		else {
 			TextViewGPS1.setText("Disabled");
-			TextViewGPS1.setTextColor(getResources().getColor(R.color.blue_bright));
+			TextViewGPS1.setTextColor(getResources().getColor(R.color.aqua_bright));
 		}
 	}
 	
